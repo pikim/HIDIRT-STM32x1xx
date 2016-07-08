@@ -1,0 +1,3 @@
+# HIDIRT-STM32x1xx
+Device firmware for HIDIRT (HID InfraRed Transceiver) written in C for STM32 (F1 or L1).
+It uses ST's HAL libraries and was developed on Eclipse CDT with the GNU ARM Eclipse plugin. Eclipse configurations are used to select whether the target is a F1 or a L1 device.
