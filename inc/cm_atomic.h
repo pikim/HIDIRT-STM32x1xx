@@ -64,20 +64,20 @@
  * @code
  *             uint32_t __cond = 1;
  *             uint32_t __prim = __get_PRIMASK();
- *             __cond != 0 ? __disable_irq() : 0;
+ *             __cond != 0 ? (__disable_irq(), 0) : 0;
  *             while(__cond != 0)
  *             {
  *                // atomic operations go here
  *
- *                (type && __prim) == 0 ? __enable_irq() : 0;
+ *                (type && __prim) == 0 ? (__enable_irq(), 0) : 0;
  *                __cond = 0;
- *                __cond != 0 ? __disable_irq() : 0;
+ *                __cond != 0 ? (__disable_irq(), 0) : 0;
  *             }
  * @endcode
 */
 #define ATOMIC_BLOCK(type) for( uint32_t __cond = 1, __prim = __get_PRIMASK(); \
-                                __cond != 0 ? __disable_irq() : 0, __cond != 0; \
-                                (type && __prim) == 0 ? __enable_irq() : 0, __cond = 0 )
+                                __cond != 0 ? (__disable_irq(), 0) : 0, __cond != 0; \
+                                (type && __prim) == 0 ? (__enable_irq(), 0) : 0, __cond = 0 )
 
 /**
  * @def        ATOMIC_FORCEON
