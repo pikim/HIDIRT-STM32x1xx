@@ -114,13 +114,13 @@ HAL_StatusTypeDef EEPROM_WriteBytes(uint32_t address, void *data, uint8_t length
 
    HAL_FLASH_Lock();
 #elif defined(STM32L151xB)
+   // add EEPROM address offset
+   address += DATA_EEPROM_START_ADDR;
+
    if((address < DATA_EEPROM_START_ADDR) || (address > DATA_EEPROM_END_ADDR))
    {
       return HAL_ERROR;
    }
-
-   // add EEPROM address offset
-   address += DATA_EEPROM_START_ADDR;
 
    HAL_FLASHEx_DATAEEPROM_Unlock();
 
@@ -347,7 +347,7 @@ void IRSND_ProcessData(void)
 
 /**
   * @brief  Callback from SWRTC that is called every second and stores the
-  *         the current time in the backup registers.
+  *         current time in the backup registers.
   */
 void FullSecond(void)
 {
