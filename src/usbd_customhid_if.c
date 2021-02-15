@@ -46,7 +46,7 @@ static int8_t CustomHID_GetFeature  (uint8_t event_idx, uint8_t* buffer, uint16_
 static uint16_t CustomHID_FeatureReportLength(uint8_t event_idx);
 
 /* Private variables ---------------------------------------------------------*/
-static char FirmwareVersion[USBD_CUSTOMHID_INREPORT_BUF_SIZE-1] = "v0.31";
+static char FirmwareVersion[USBD_CUSTOMHID_INREPORT_BUF_SIZE-1] = "v0.32";
 static hidirt_data_t hidirt_data_shadow = {0};
 
 __ALIGN_BEGIN static uint8_t CustomHID_ReportDesc[USBD_CUSTOM_HID_REPORT_DESC_SIZE] __ALIGN_END =
