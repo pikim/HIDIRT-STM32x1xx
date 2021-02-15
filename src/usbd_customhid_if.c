@@ -166,7 +166,7 @@ static int8_t CustomHID_OutEvent(uint8_t event_idx, uint8_t* buffer)
 {
    switch(event_idx)
    {
-   case REP_ID_CONTROL_PC_ENABLE:
+   case REP_ID_IR_CODE_INTERRUPT:
       // write command to FIFO from where it will be sent later
       FIFO_Write(&irsnd_fifo, (fifo_entry_t*)buffer);
       break;
