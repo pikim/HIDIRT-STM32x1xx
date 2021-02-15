@@ -1631,7 +1631,9 @@ static HAL_StatusTypeDef FLASH_DATAEEPROM_FastProgramByte(uint32_t Address, uint
       tmpaddr = 0xFF << ((uint32_t) (0x8 * (Address & 0x3)));
       tmp &= ~tmpaddr;
       status = HAL_FLASHEx_DATAEEPROM_Erase(FLASH_TYPEERASEDATA_WORD, Address & 0xFFFFFFFC);
+      __HAL_UNLOCK(&pFlash);
       status = HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_FASTWORD, (Address & 0xFFFFFFFC), tmp);
+      __HAL_LOCK(&pFlash);
     }       
 #else /*!Cat1*/ 
     /* If the previous operation is completed, proceed to write the new Data */
@@ -1682,6 +1684,7 @@ static HAL_StatusTypeDef FLASH_DATAEEPROM_FastProgramHalfWord(uint32_t Address, 
     }
     else
     {
+      __HAL_UNLOCK(&pFlash);
       if((Address & 0x3) != 0x3)
       {
         tmpaddr = Address & 0xFFFFFFFC;
@@ -1696,6 +1699,7 @@ static HAL_StatusTypeDef FLASH_DATAEEPROM_FastProgramHalfWord(uint32_t Address, 
         HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_FASTBYTE, Address, 0x00);
         HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_FASTBYTE, Address + 1, 0x00);
       }
+      __HAL_LOCK(&pFlash);
     }
 #else /* !Cat1 */
     /* If the previous operation is completed, proceed to write the new data */
@@ -1778,7 +1782,9 @@ static HAL_StatusTypeDef FLASH_DATAEEPROM_ProgramByte(uint32_t Address, uint8_t 
       tmpaddr = 0xFF << ((uint32_t) (0x8 * (Address & 0x3)));
       tmp &= ~tmpaddr;        
       status = HAL_FLASHEx_DATAEEPROM_Erase(FLASH_TYPEERASEDATA_WORD, Address & 0xFFFFFFFC);
+      __HAL_UNLOCK(&pFlash);
       status = HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_FASTWORD, (Address & 0xFFFFFFFC), tmp);
+      __HAL_LOCK(&pFlash);
     }
 #else /* Not Cat1*/
     *(__IO uint8_t *)Address = Data;
@@ -1822,6 +1828,7 @@ static HAL_StatusTypeDef FLASH_DATAEEPROM_ProgramHalfWord(uint32_t Address, uint
     }
     else
     {
+      __HAL_UNLOCK(&pFlash);
       if((Address & 0x3) != 0x3)
       {
         tmpaddr = Address & 0xFFFFFFFC;
@@ -1836,6 +1843,7 @@ static HAL_StatusTypeDef FLASH_DATAEEPROM_ProgramHalfWord(uint32_t Address, uint
         HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_FASTBYTE, Address, 0x00);
         HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_FASTBYTE, Address + 1, 0x00);
       }
+      __HAL_LOCK(&pFlash);
     }
 #else /* Not Cat1*/
     *(__IO uint16_t *)Address = Data;
