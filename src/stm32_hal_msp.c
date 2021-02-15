@@ -251,6 +251,9 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
 {
 //   if(htim->Instance == IRMP_IRSND_TIMER)
    {
+      /* TIMx peripheral clock enable */
+      IRMP_IRSND_TIMER_CLK_EN();
+
       /* Configure TIMx */
       htim->Init.Period         = (HAL_RCC_GetPCLK1Freq()/F_INTERRUPTS)-1;
       htim->Init.Prescaler      = 0;
@@ -263,9 +266,6 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
         /* Starting Error */
         Error_Handler();
       }
-
-      /* TIMx peripheral clock enable */
-      IRMP_IRSND_TIMER_CLK_EN();
 
       /* Set the TIMx NVIC priority */
       HAL_NVIC_SetPriority(IRMP_IRSND_TIMER_IRQ, 0, 1);
