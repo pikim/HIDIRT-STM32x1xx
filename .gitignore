@@ -1,7 +1,7 @@
 [Dd]ebug*/
 [Rr]elease*/
 [Dd]oc*/
-/L1 Debug/
-/F1 Debug/
-/F1 Release/
-/L1 Release/
+/F1_Debug/
+/F1_Release/
+/L1_Debug/
+/L1_Release/
